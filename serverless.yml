@@ -9,14 +9,9 @@ provider:
   region: eu-north-1
   environment: 
     JWT_SECRET: ${ssm:/for-class/aws/ticket-app/jwt-secret}
+    USER_TABLE: examUser-db
   role: ${ssm:/for-class/iam/role}
 
-package:
-  individually: true
-
-build:
-  esbuild: 
-    minify: true
 
 resources:
   Resources:
@@ -34,5 +29,16 @@ resources:
 
 
 functions:
-  hello:
-    handler: handler.hello
+  signUp:
+    handler: functions/signUp/index.handler
+    events:
+      - httpApi:
+          path: '/auth/signUp'
+          method: POST
+
+  signIn:
+    handler: functions/signIn/index.handler
+    events:
+      - httpApi:
+          path: '/auth/signIn'
+          method: POST
