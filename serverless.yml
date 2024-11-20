@@ -11,6 +11,9 @@ provider:
     JWT_SECRET: ${ssm:/for-class/aws/ticket-app/jwt-secret}
   role: ${ssm:/for-class/iam/role}
 
+package:
+  individually: true
+
 build:
   esbuild: 
     minify: true
