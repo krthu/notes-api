@@ -4,6 +4,10 @@ import { DynamoDBClient, GetItemCommand } from '@aws-sdk/client-dynamodb';
 const db = new DynamoDBClient({region: 'eu-north-1'});
 import { unmarshall } from '@aws-sdk/util-dynamodb';
 import { sendResponse } from '../../responses/sendResponse.mjs';
+import middy from '@middy/core';
+import { jsonParsing } from '../../middleware/jsonParsing.mjs';
+import { errorHandler } from '../../middleware/errorHandler.mjs';
+import { validateInputKeys } from '../../middleware/validateInputKeys.mjs';
 
 async function getUser(username) {
     const params = {
@@ -40,8 +44,9 @@ async function login(username, password) {
 }
 
 
-export async function handler(event, context){
-    const {username, password} = JSON.parse(event.body);
+async function handleLogin(event, context){
+    //const {username, password} = JSON.parse(event.body);
+    const {username, password} = event.jsonBody;
     const result = await login(username, password)
     if (result.success){
         return sendResponse(200, result);
@@ -49,3 +54,8 @@ export async function handler(event, context){
         return sendResponse(400, result);
     }
 }
+
+export const handler = middy(handleLogin)
+        .use(jsonParsing)
+        .use(validateInputKeys(['username', 'password']))
+        .use(errorHandler)
