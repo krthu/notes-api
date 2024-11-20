@@ -1,0 +1,35 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: ktpersonal
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: exam-aws-api
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-north-1
+  environment: 
+    JWT_SECRET: ${ssm:/for-class/aws/ticket-app/jwt-secret}
+  role: ${ssm:/for-class/iam/role}
+
+build:
+  esbuild: 
+    minify: true
+
+resources:
+  Resources:
+    ticketAppUsersDb:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: examUser-db
+        AttributeDefinitions:
+          - AttributeName: username
+            AttributeType: S
+        KeySchema:
+          - AttributeName: username
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
+
+functions:
+  hello:
+    handler: handler.hello
