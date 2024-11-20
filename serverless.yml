@@ -12,6 +12,12 @@ provider:
     USER_TABLE: examUser-db
   role: ${ssm:/for-class/iam/role}
 
+package:
+  individually: true
+
+build:
+  esbuild: 
+    minify: true
 
 resources:
   Resources:
