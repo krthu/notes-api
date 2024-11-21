@@ -11,8 +11,10 @@ async function retriveNotesFromDB(userId) {
     const params = {
         TableName: process.env.NOTES_TABLE,
         KeyConditionExpression: 'userId = :userId',
+        FilterExpression: "deleted <> :deleted",
         ExpressionAttributeValues: {
-            ':userId': {S: userId}
+            ':userId': {S: userId},
+            ":deleted": { BOOL: true }
         }
     }
     try {
