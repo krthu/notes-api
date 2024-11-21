@@ -7,7 +7,7 @@ import { sendResponse } from '../../responses/sendResponse.mjs';
 import middy from '@middy/core';
 import { jsonParsing } from '../../middleware/jsonParsing.mjs';
 import { errorHandler } from '../../middleware/errorHandler.mjs';
-import { validateInputKeys } from '../../middleware/validateInputKeys.mjs';
+import { validateInput, validateInputKeys } from '../../middleware/validateInputKeys.mjs';
 
 async function getUser(username) {
     const params = {
@@ -57,5 +57,19 @@ async function handleLogin(event, context){
 
 export const handler = middy(handleLogin)
         .use(jsonParsing)
-        .use(validateInputKeys(['username', 'password']))
+        //.use(validateInputKeys(['username', 'password']))
+        .use(validateInput({
+            username: {
+                required: true,
+                type: 'string',
+                // validate: (value) => value.trim().length > 1,
+                // validationError: 'Needs to be atleast 1 character'
+            },
+            password: {
+                required: true,
+                type: 'string',
+                // validate: (value) => value.length > 6,
+                // validationError: 'Needs to be atleast 6 characters'
+            }
+        }))
         .use(errorHandler)

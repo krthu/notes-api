@@ -12,7 +12,8 @@ export const validateToken = {
             return request.response;
         } catch (error) {
             console.log(error);
-            request.event.error = {succsess: false, message: 'Incorect password or username'}
+            request.event.error =  'Unauthorized'
+            request.event.errorCode = 401
             throw new Error();
         }
     }
