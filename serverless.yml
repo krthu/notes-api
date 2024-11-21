@@ -72,3 +72,10 @@ functions:
       - httpApi:
           path: '/api/notes'
           method: POST
+
+  getNotes:
+    handler: functions/getNotes/index.handler
+    events:
+      - httpApi:
+          path: '/api/notes'
+          method: GET
