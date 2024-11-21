@@ -9,7 +9,8 @@ provider:
   region: eu-north-1
   environment: 
     JWT_SECRET: ${ssm:/for-class/aws/ticket-app/jwt-secret}
-    USER_TABLE: examUser-db
+    USER_TABLE: examUsers-db
+    NOTES_TABLE: examNotes-db
   role: ${ssm:/for-class/iam/role}
 
 package:
@@ -21,10 +22,10 @@ build:
 
 resources:
   Resources:
-    ticketAppUsersDb:
+    examUsers:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: examUser-db
+        TableName: examUsers-db
         AttributeDefinitions:
           - AttributeName: username
             AttributeType: S
@@ -32,19 +33,42 @@ resources:
           - AttributeName: username
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
-
+      
+    examNotes:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: examNotes-db
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+          - AttributeName: id
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+  
 
 functions:
   signUp:
     handler: functions/signUp/index.handler
     events:
       - httpApi:
-          path: '/auth/signUp'
+          path: '/api/user/signup'
           method: POST
 
   signIn:
     handler: functions/signIn/index.handler
     events:
       - httpApi:
-          path: '/auth/signIn'
+          path: '/api/user/login'
+          method: POST
+
+  postNote:
+    handler: functions/postNote/index.handler
+    events:
+      - httpApi:
+          path: '/api/notes'
           method: POST
