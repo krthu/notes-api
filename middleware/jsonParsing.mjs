@@ -8,6 +8,7 @@ export const jsonParsing = {
             
         } catch (error) {
             request.event.error = {success: false, message: 'Error parsing json'};
+            request.event.errorCode = 400;
             throw new Error();
         }
     }
