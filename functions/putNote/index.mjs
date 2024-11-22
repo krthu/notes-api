@@ -20,21 +20,22 @@ async function putNote(event) {
     const result = await getNote(userId, noteId)
     if (!result.success){ return sendResponse(result.errorCode, {success: result.success, message: result.message}) }
 //    const editNoteResult = await editNote(result.note, title, text);
-    const valuesToCange = {
+
+    // Check if deleted if so return it has to be restored firtst
+
+    const valuesToChange = {
         title: title,
         text, text,
         modifiedAt: new Date().toISOString()
     }
-    const editNoteResult = await editNote(result.note, valuesToCange)
+    const editNoteResult = await editNote(result.note, valuesToChange)
     if (!editNoteResult.success){
         return sendResponse(500, editNoteResult)
     }
     else{
         return sendResponse(200, editNoteResult)
     }
-
 }
-
 
 export const handler = middy(putNote)
     .use(validateToken)
