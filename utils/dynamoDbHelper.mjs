@@ -27,10 +27,11 @@ export async function getNote(userId, noteId) {
         return {success: false, message: 'Error fetching note', errorCode: 500}
     }
 }
-
-export async function editNote(noteToEdit, newTitle, newText, deleted = false) {
-    const updatedNote = {...noteToEdit, title: newTitle, text: newText, deleted: deleted}
-    updatedNote.modifiedAt = new Date().toISOString();
+export async function editNote(noteToEdit, valuesToChange) {
+//export async function editNote(noteToEdit, newTitle, newText, deleted = false) {
+//    const updatedNote = {...noteToEdit, title: newTitle, text: newText, deleted: deleted}
+//    updatedNote.modifiedAt = new Date().toISOString();
+    const updatedNote = {...noteToEdit, ...valuesToChange}
     console.log(updatedNote)
     const params = {
         TableName: process.env.NOTES_TABLE,
