@@ -1,4 +1,4 @@
-import { DynamoDBClient, GetItemCommand, PutItemCommand, QueryCommand } from '@aws-sdk/client-dynamodb';
+import { DynamoDBClient, GetItemCommand, PutItemCommand, QueryCommand, DeleteItemCommand } from '@aws-sdk/client-dynamodb';
 import { unmarshall, marshall } from '@aws-sdk/util-dynamodb';
 
 
@@ -73,6 +73,29 @@ export async function retriveNotesFromDB(userId, deleted = false) {
         console.error('Error quering table', error)
         return { success: false, message: 'Error fetching notes' }
     }
+
+
+}
+
+export async function deleteNotePermanently(userId, noteId) {
+    const params = {
+        TableName: process.env.NOTES_TABLE,
+        Key: {
+            userId: {S: userId},
+            id: {S: noteId}
+        }
+    };
+
+    try {
+        command = new DeleteItemCommand(params);
+        await dbClient.send(command);
+        return {success: true, message: `NoteId ${noteId} is permanetly erased`}
+
+
+    } catch (error) {
+        return {success: false, message: 'Error deleting item'}
+    }
+
 
 
 }
