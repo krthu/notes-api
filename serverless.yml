@@ -93,3 +93,10 @@ functions:
       - httpApi:
           path: '/api/notes/{noteId}'
           method: Delete
+
+  getDeletedNotes:
+    handler: functions/getDeletedNotes/index.handler
+    events:
+      - httpApi:
+          path: '/api/deleted-notes'
+          method: GET
