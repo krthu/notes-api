@@ -101,6 +101,13 @@ functions:
           path: '/api/deleted-notes'
           method: GET
 
+  permanentlyDeleteNote:
+    handler: functions/permanentlyDeleteNote/index.handler
+    events:
+      - httpApi:
+          path: '/api/deleted-notes/{noteId}'
+          method: DELETE
+
   restoreNote:
     handler: functions/restoreNote/index.handler
     events:
