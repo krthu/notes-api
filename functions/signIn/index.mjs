@@ -40,7 +40,7 @@ async function login(username, password) {
     const correctPassword = await bcrypt.compare(password, user.password);
     if (!correctPassword) return {success: false, message:'Incorrect username or password'}
 
-    const token = jwt.sign({id: user.userId, username: username}, process.env.JWT_SECRET, {expiresIn: 3600});
+    const token = jwt.sign({id: user.userId, username: username}, process.env.JWT_SECRET, {expiresIn: 13600});
     return {success: true, token: token}
 }
 
