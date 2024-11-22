@@ -1,17 +1,51 @@
-export const noteValidation = {
-    title: {
-        required: true,
-        type: 'string',
-        validate: (value) => value.length > 1 && value.length <= 50,
-        validationError: 'Need to be between 1-50 characters'
-    },
-    text: {
-        required: true,
-        type: 'string',
-        validate: (value) => value.length > 1 && value.length <= 300,
-        validationError: 'Need to be between 1-300 characters'
-    }
+
+const noteTitleValidation = {
+    required: true,
+    type: 'string',
+    validate: (value) => value.length > 1 && value.length <= 50,
+    validationError: 'Need to be between 1-50 characters'
 }
+
+const noteTextValidation = {
+    required: true,
+    type: 'string',
+    validate: (value) => value.length > 1 && value.length <= 300,
+    validationError: 'Need to be between 1-300 characters'
+}
+
+const noteIdValidation = {
+    required: true,
+    type: 'string',
+}
+
+export const noteValidation = {
+    title: noteTitleValidation,
+    text: noteTextValidation
+}
+
+
+// export const noteValidation = {
+//     title: noteTitleValidation,
+//     text: {
+//         required: true,
+//         type: 'string',
+//         validate: (value) => value.length > 1 && value.length <= 300,
+//         validationError: 'Need to be between 1-300 characters'
+//     }
+// }
+
+// export const createNoteValidation = {
+//     title: noteTitleValidation,
+//     text: noteTextValidation
+// }
+
+// export const changeNoteValidation = {
+//     id: noteIdValidation,
+//     title: noteTitleValidation,
+//     text: noteTextValidation
+// }
+
+
 
 export const signUpValidation = { 
     username:{
@@ -24,7 +58,7 @@ export const signUpValidation = {
         required: true,
         type: 'string',
         validate: (value) => value.length >= 6,
-        validationError: 'Needs to be atleast 6 characters' //Check for more like Aa3 included
+        validationError: 'Needs to be atleast 6 characters' //Check for more like Aa3 included?
     },
     firstname: {
         required: true,

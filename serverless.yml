@@ -79,3 +79,10 @@ functions:
       - httpApi:
           path: '/api/notes'
           method: GET
+
+  putNote:
+    handler: functions/putNote/index.handler
+    events:
+      - httpApi:
+          path: '/api/notes/{noteId}'
+          method: PUT

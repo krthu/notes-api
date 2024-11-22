@@ -4,36 +4,37 @@ import { DynamoDBClient, QueryCommand } from '@aws-sdk/client-dynamodb';
 import { unmarshall } from '@aws-sdk/util-dynamodb';
 import { errorHandler } from "../../middleware/errorHandler.mjs";
 import { sendResponse } from "../../responses/sendResponse.mjs";
+import { retriveNotesFromDB } from "../../utils/dynamoDbHelper.mjs";
 const dbClient = new DynamoDBClient()
 
 
-async function retriveNotesFromDB(userId) {
-    const params = {
-        TableName: process.env.NOTES_TABLE,
-        KeyConditionExpression: 'userId = :userId',
-        FilterExpression: "deleted <> :deleted",
-        ExpressionAttributeValues: {
-            ':userId': {S: userId},
-            ":deleted": { BOOL: true }
-        }
-    }
-    try {
-        const command = new QueryCommand(params);
-        const data = await dbClient.send(command);
-        console.log('DAta: ', data)
-        console.log('DAta: ', data.Items);
-        //const notes = unmarshall(data.Items);
-        const notes = data.Items.filter(note => unmarshall(note))
-        return {success: true, notes: notes}
+// async function retriveNotesFromDB(userId) {
+//     const params = {
+//         TableName: process.env.NOTES_TABLE,
+//         KeyConditionExpression: 'userId = :userId',
+//         FilterExpression: "deleted <> :deleted",
+//         ExpressionAttributeValues: {
+//             ':userId': {S: userId},
+//             ":deleted": { BOOL: true }
+//         }
+//     }
+//     try {
+//         const command = new QueryCommand(params);
+//         const data = await dbClient.send(command);
+//         console.log('DAta: ', data)
+//         console.log('DAta: ', data.Items);
+//         //const notes = unmarshall(data.Items);
+//         const notes = data.Items.filter(note => unmarshall(note))
+//         return {success: true, notes: notes}
 
 
-    } catch (error) {
-        console.error('Error quering table', error)
-        return { success: false, message: 'Error fetching notes'}
-    }
+//     } catch (error) {
+//         console.error('Error quering table', error)
+//         return { success: false, message: 'Error fetching notes'}
+//     }
 
 
-}
+// }
 
 
 
