@@ -5,9 +5,10 @@ import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
 import { sendResponse } from '../../responses/sendResponse.mjs';
 import middy from '@middy/core';
 import { jsonParsing } from '../../middleware/jsonParsing.mjs';
-import { validateInput } from '../../middleware/validateInputKeys.mjs';
+import { validateInput } from '../../middleware/validateInput.mjs';
 import { errorHandler } from '../../middleware/errorHandler.mjs';
-const db = new DynamoDBClient({region: 'eu-north-1'});
+import { signUpValidation } from '../../utils/validationObjects.mjs';
+const db = new DynamoDBClient();
 
 
 
@@ -58,30 +59,5 @@ export async function handleSignUp(event, context) {
 
 export const handler = middy(handleSignUp)
     .use(jsonParsing)
-    .use(validateInput({
-        username:{
-            required: true,
-            type: 'string',
-            validate: (value) => value.length >= 6,
-            validationError: 'Needs to be atleast 6 characters'
-        },
-        password: {
-            required: true,
-            type: 'string',
-            validate: (value) => value.length >= 6,
-            validationError: 'Needs to be atleast 6 characters' //Check for more like Aa3 included
-        },
-        firstname: {
-            required: true,
-            type: 'string',
-            validate: (value) => value.length > 1,
-            validationError: 'Needs to be atleast 1 characters'
-        },
-        lastname: {
-            required: true,
-            type: 'string',
-            validate: (value) => value.length > 1,
-            validationError: 'Needs to be atleast 1 characters'
-        }
-    }))
+    .use(validateInput(signUpValidation))
     .use(errorHandler)
