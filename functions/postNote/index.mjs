@@ -57,23 +57,7 @@ async function postNote(event) {
 export const handler = middy(postNote)
     .use(validateToken)
     .use(jsonParsing)
-    //.use(validateInputKeys(['title', 'text']))
-    .use(validateInput(noteValidation
-        // {
-        //     title: {
-        //         required: true,
-        //         type: 'string',
-        //         validate: (value) => value.length > 1 && value.length <= 50,
-        //         validationError: 'Need to be between 1-50 characters'
-        //     },
-        //     text: {
-        //         required: true,
-        //         type: 'string',
-        //         validate: (value) => value.length > 1 && value.length <= 300,
-        //         validationError: 'Need to be between 1-300 characters'
-        //     }
-        // }
-    ))
+    .use(validateInput(noteValidation))
 
 
     .use(errorHandler)

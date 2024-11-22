@@ -58,21 +58,5 @@ async function handleLogin(event, context){
 
 export const handler = middy(handleLogin)
         .use(jsonParsing)
-        //.use(validateInputKeys(['username', 'password']))
-        .use(validateInput(loginValidation
-        //     {
-        //     username: {
-        //         required: true,
-        //         type: 'string',
-        //         // validate: (value) => value.trim().length > 1,
-        //         // validationError: 'Needs to be atleast 1 character'
-        //     },
-        //     password: {
-        //         required: true,
-        //         type: 'string',
-        //         // validate: (value) => value.length > 6,
-        //         // validationError: 'Needs to be atleast 6 characters'
-        //     }
-        // }
-    ))
+        .use(validateInput(loginValidation))
         .use(errorHandler)

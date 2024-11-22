@@ -59,32 +59,5 @@ export async function handleSignUp(event, context) {
 
 export const handler = middy(handleSignUp)
     .use(jsonParsing)
-    .use(validateInput(signUpValidation
-    //     {
-    //     username:{
-    //         required: true,
-    //         type: 'string',
-    //         validate: (value) => value.length >= 6,
-    //         validationError: 'Needs to be atleast 6 characters'
-    //     },
-    //     password: {
-    //         required: true,
-    //         type: 'string',
-    //         validate: (value) => value.length >= 6,
-    //         validationError: 'Needs to be atleast 6 characters' //Check for more like Aa3 included
-    //     },
-    //     firstname: {
-    //         required: true,
-    //         type: 'string',
-    //         validate: (value) => value.length > 1,
-    //         validationError: 'Needs to be atleast 1 characters'
-    //     },
-    //     lastname: {
-    //         required: true,
-    //         type: 'string',
-    //         validate: (value) => value.length > 1,
-    //         validationError: 'Needs to be atleast 1 characters'
-    //     }
-    // }
-))
+    .use(validateInput(signUpValidation))
     .use(errorHandler)
