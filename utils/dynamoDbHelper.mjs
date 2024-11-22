@@ -10,27 +10,28 @@ export async function getNote(userId, noteId) {
         Key: {
             userId: { S: userId },
             id: { S: noteId },
-        },   
+        },
     }
     try {
         const command = new GetItemCommand(params);
         const data = await dbClient.send(command);
 
-        if(data.Item){
-            return {success: true, note: unmarshall(data.Item)}
+        if (data.Item) {
+            return { success: true, note: unmarshall(data.Item) }
         } else {
-            return {success: false, message: 'Note not found', errorCode: 404}
+            return { success: false, message: 'Note not found', errorCode: 404 }
         }
-        
+
     } catch (error) {
         console.log(error);
-        return {success: false, message: 'Error fetching note', errorCode: 500}
+        return { success: false, message: 'Error fetching note', errorCode: 500 }
     }
 }
-
-export async function editNote(noteToEdit, newTitle, newText, deleted = false) {
-    const updatedNote = {...noteToEdit, title: newTitle, text: newText, deleted: deleted}
-    updatedNote.modifiedAt = new Date().toISOString();
+export async function editNote(noteToEdit, valuesToChange, deleted = false) {
+    //export async function editNote(noteToEdit, newTitle, newText, deleted = false) {
+    //    const updatedNote = {...noteToEdit, title: newTitle, text: newText, deleted: deleted}
+    //    updatedNote.modifiedAt = new Date().toISOString();
+    const updatedNote = { ...noteToEdit, ...valuesToChange }
     console.log(updatedNote)
     const params = {
         TableName: process.env.NOTES_TABLE,
@@ -40,11 +41,11 @@ export async function editNote(noteToEdit, newTitle, newText, deleted = false) {
     try {
         const command = new PutItemCommand(params);
         await dbClient.send(command);
-        return {success: true, message:`${updatedNote.id} updated`}
+        return { success: true, message: `NoteId: ${updatedNote.id} ${deleted ? 'deleted' : 'updated'}` }
     } catch (error) {
         console.log("Error saving note", error);
-        return{success: false, message: 'Error saving note'}
-        
+        return { success: false, message: 'Error saving note' }
+
     }
 }
 
@@ -54,7 +55,7 @@ export async function retriveNotesFromDB(userId, deleted = false) {
         KeyConditionExpression: 'userId = :userId',
         FilterExpression: "deleted <> :deleted",
         ExpressionAttributeValues: {
-            ':userId': {S: userId},
+            ':userId': { S: userId },
             ":deleted": { BOOL: true }
         }
     }
@@ -65,12 +66,12 @@ export async function retriveNotesFromDB(userId, deleted = false) {
         console.log('DAta: ', data.Items);
         //const notes = unmarshall(data.Items);
         const notes = data.Items.filter(note => unmarshall(note))
-        return {success: true, notes: notes}
+        return { success: true, notes: notes }
 
 
     } catch (error) {
         console.error('Error quering table', error)
-        return { success: false, message: 'Error fetching notes'}
+        return { success: false, message: 'Error fetching notes' }
     }
 
 
