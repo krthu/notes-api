@@ -100,3 +100,10 @@ functions:
       - httpApi:
           path: '/api/deleted-notes'
           method: GET
+
+  restoreNote:
+    handler: functions/restoreNote/index.handler
+    events:
+      - httpApi:
+          path: '/api/restore-note/{noteId}'
+          method: PUT
