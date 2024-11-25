@@ -18,7 +18,7 @@ async function putNote(event) {
 
     // Check if deleted if so return it has to be restored firtst
     if (result.note.deleted){
-        return sendResponse(400, {success: false, message: 'Note is already deleteted, restore it before editing.'});s
+        return sendResponse(400, {success: false, message: 'Note is already deleteted, restore it before editing.', noteId: noteId});
     }
 
     const valuesToChange = {
