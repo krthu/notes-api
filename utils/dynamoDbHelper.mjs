@@ -28,9 +28,7 @@ export async function getNote(userId, noteId) {
     }
 }
 export async function editNote(noteToEdit, valuesToChange, deleted = false) {
-    //export async function editNote(noteToEdit, newTitle, newText, deleted = false) {
-    //    const updatedNote = {...noteToEdit, title: newTitle, text: newText, deleted: deleted}
-    //    updatedNote.modifiedAt = new Date().toISOString();
+
     const updatedNote = { ...noteToEdit, ...valuesToChange }
     console.log(updatedNote)
     const params = {
@@ -41,7 +39,7 @@ export async function editNote(noteToEdit, valuesToChange, deleted = false) {
     try {
         const command = new PutItemCommand(params);
         await dbClient.send(command);
-        return { success: true, message: `NoteId: ${updatedNote.id} ${deleted ? 'deleted' : 'updated'}` }
+        return { success: true, message: `Note ${deleted ? 'deleted' : 'updated'}`, noteId: updatedNote.id }
     } catch (error) {
         console.log("Error saving note", error);
         return { success: false, message: 'Error saving note' }
@@ -62,19 +60,14 @@ export async function retriveNotesFromDB(userId, deleted = false) {
     try {
         const command = new QueryCommand(params);
         const data = await dbClient.send(command);
-        console.log('DAta: ', data)
-        console.log('DAta: ', data.Items);
-        //const notes = unmarshall(data.Items);
+
         const notes = data.Items.map(note => unmarshall(note))
         return { success: true, notes: notes }
-
 
     } catch (error) {
         console.error('Error quering table', error)
         return { success: false, message: 'Error fetching notes' }
     }
-
-
 }
 
 export async function deleteNotePermanently(userId, noteId) {
@@ -89,13 +82,19 @@ export async function deleteNotePermanently(userId, noteId) {
     try {
         command = new DeleteItemCommand(params);
         await dbClient.send(command);
-        return {success: true, message: `NoteId ${noteId} is permanetly erased`}
+        return {success: true, message: `Note is permanetly erased`, noteId: noteId}
 
 
     } catch (error) {
         return {success: false, message: 'Error deleting item'}
     }
+}
 
-
+export function removeInternalFieldsFromNotes( notes ) {
+    const editedNotes = notes.map(note => {
+        delete note.deleted;
+        return note
+    })
+    return editedNotes
 
 }
