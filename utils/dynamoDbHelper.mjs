@@ -28,9 +28,7 @@ export async function getNote(userId, noteId) {
     }
 }
 export async function editNote(noteToEdit, valuesToChange, deleted = false) {
-    //export async function editNote(noteToEdit, newTitle, newText, deleted = false) {
-    //    const updatedNote = {...noteToEdit, title: newTitle, text: newText, deleted: deleted}
-    //    updatedNote.modifiedAt = new Date().toISOString();
+
     const updatedNote = { ...noteToEdit, ...valuesToChange }
     console.log(updatedNote)
     const params = {
@@ -41,7 +39,7 @@ export async function editNote(noteToEdit, valuesToChange, deleted = false) {
     try {
         const command = new PutItemCommand(params);
         await dbClient.send(command);
-        return { success: true, message: `NoteId: ${updatedNote.id} ${deleted ? 'deleted' : 'updated'}` }
+        return { success: true, message: `Note ${deleted ? 'deleted' : 'updated'}`, noteId: updatedNote.id }
     } catch (error) {
         console.log("Error saving note", error);
         return { success: false, message: 'Error saving note' }
@@ -73,8 +71,6 @@ export async function retriveNotesFromDB(userId, deleted = false) {
         console.error('Error quering table', error)
         return { success: false, message: 'Error fetching notes' }
     }
-
-
 }
 
 export async function deleteNotePermanently(userId, noteId) {
@@ -89,13 +85,10 @@ export async function deleteNotePermanently(userId, noteId) {
     try {
         command = new DeleteItemCommand(params);
         await dbClient.send(command);
-        return {success: true, message: `NoteId ${noteId} is permanetly erased`}
+        return {success: true, message: `Note is permanetly erased`, noteId: noteId}
 
 
     } catch (error) {
         return {success: false, message: 'Error deleting item'}
     }
-
-
-
 }

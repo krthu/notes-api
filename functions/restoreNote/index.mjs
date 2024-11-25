@@ -19,7 +19,7 @@ async function handleRestoreNote(event) {
     }
     const editNoteResult = await editNote(getNoteResult.note, valuesToChange)
     if (!editNoteResult.success) { return sendResponse(500, editNoteResult)}
-    editNoteResult.message = `Restored note with id: ${noteId}`
+    editNoteResult.message = `Restored note`
     return sendResponse(200, editNoteResult)
 }
 

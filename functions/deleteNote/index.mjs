@@ -5,8 +5,6 @@ import { getNote, editNote  } from "../../utils/dynamoDbHelper.mjs";
 import { sendResponse } from "../../responses/sendResponse.mjs";
 
 
-
-
 async function handleDeleteNote(event) {
     const userId = event.id;
     const {noteId} = event.pathParameters;
@@ -15,7 +13,7 @@ async function handleDeleteNote(event) {
 
     const getNoteResult = await getNote(userId, noteId);
     if (!getNoteResult.success){ return sendResponse(getNoteResult.errorCode, {success: getNoteResult.success, message: getNoteResult.message})}
-    if (getNoteResult.note.deleted){return sendResponse(400, {success: false, message: 'Note already deleted. To permanently delete use deleted-notes endpoint'})}
+    if (getNoteResult.note.deleted){return sendResponse(400, {success: false, message: 'Note already deleted. To permanently delete use deleted-notes endpoint', noteId: noteId})}
     
     const valuesToChange = {
         deleted: true
