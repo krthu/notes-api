@@ -60,12 +60,9 @@ export async function retriveNotesFromDB(userId, deleted = false) {
     try {
         const command = new QueryCommand(params);
         const data = await dbClient.send(command);
-        console.log('DAta: ', data)
-        console.log('DAta: ', data.Items);
-        //const notes = unmarshall(data.Items);
+
         const notes = data.Items.map(note => unmarshall(note))
         return { success: true, notes: notes }
-
 
     } catch (error) {
         console.error('Error quering table', error)
@@ -91,4 +88,13 @@ export async function deleteNotePermanently(userId, noteId) {
     } catch (error) {
         return {success: false, message: 'Error deleting item'}
     }
+}
+
+export function removeInternalFieldsFromNotes( notes ) {
+    const editedNotes = notes.map(note => {
+        delete note.deleted;
+        return note
+    })
+    return editedNotes
+
 }
