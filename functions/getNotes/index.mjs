@@ -1,7 +1,6 @@
 import middy from "@middy/core";
 import { validateToken } from "../../middleware/auth.mjs";
-import { DynamoDBClient, QueryCommand } from '@aws-sdk/client-dynamodb';
-import { unmarshall } from '@aws-sdk/util-dynamodb';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { errorHandler } from "../../middleware/errorHandler.mjs";
 import { sendResponse } from "../../responses/sendResponse.mjs";
 import { retriveNotesFromDB } from "../../utils/dynamoDbHelper.mjs";
