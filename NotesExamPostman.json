@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "809f2ade-4ec3-4cd1-ab7f-3172cf4afee3",
+		"name": "exam-aws",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "39872392"
+	},
+	"item": [
+		{
+			"name": "SignUp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"Olle2@olle.com\",\n    \"password\": \"123456\",\n    \"firstname\": \"Olle2\",\n    \"lastname\": \"Ollson\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://mf1g4s6ogi.execute-api.eu-north-1.amazonaws.com/api/user/signup"
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"Olle2@olle.com\",\n    \"password\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://mf1g4s6ogi.execute-api.eu-north-1.amazonaws.com/api/user/login"
+			},
+			"response": []
+		},
+		{
+			"name": "Post Note",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkM5N2Z2QTJUd3ZpaEM4LThQTl9XaCIsInVzZXJuYW1lIjoiT2xsZTJAb2xsZS5jb20iLCJpYXQiOjE3MzI1Mzc4MDQsImV4cCI6MTczMjU1MTQwNH0.xZFXFnY60QCQ0dW4rtRLT15IH8BdGk7eT8XlziJv8bI"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Oll2s Note\",\n    \"text\": \"This is olles note\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://mf1g4s6ogi.execute-api.eu-north-1.amazonaws.com/api/notes"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Notes",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkM5N2Z2QTJUd3ZpaEM4LThQTl9XaCIsInVzZXJuYW1lIjoiT2xsZTJAb2xsZS5jb20iLCJpYXQiOjE3MzI1Mzc4MDQsImV4cCI6MTczMjU1MTQwNH0.xZFXFnY60QCQ0dW4rtRLT15IH8BdGk7eT8XlziJv8bI"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "https://mf1g4s6ogi.execute-api.eu-north-1.amazonaws.com/api/notes"
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Note",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkM5N2Z2QTJUd3ZpaEM4LThQTl9XaCIsInVzZXJuYW1lIjoiT2xsZTJAb2xsZS5jb20iLCJpYXQiOjE3MzI1Mzc4MDQsImV4cCI6MTczMjU1MTQwNH0.xZFXFnY60QCQ0dW4rtRLT15IH8BdGk7eT8XlziJv8bI"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Den spännande titlen\",\n    \"text\": \"Det var inte så spännande text tyvärr\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://mf1g4s6ogi.execute-api.eu-north-1.amazonaws.com/api/notes/UFg5XGjqj7yv02KyTM_HB"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Note",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkM5N2Z2QTJUd3ZpaEM4LThQTl9XaCIsInVzZXJuYW1lIjoiT2xsZTJAb2xsZS5jb20iLCJpYXQiOjE3MzI1Mzc4MDQsImV4cCI6MTczMjU1MTQwNH0.xZFXFnY60QCQ0dW4rtRLT15IH8BdGk7eT8XlziJv8bI"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "https://mf1g4s6ogi.execute-api.eu-north-1.amazonaws.com/api/notes/DKN3HarpduK0-5nsptLlu"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Deleted Notes",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkM5N2Z2QTJUd3ZpaEM4LThQTl9XaCIsInVzZXJuYW1lIjoiT2xsZTJAb2xsZS5jb20iLCJpYXQiOjE3MzI1Mzc4MDQsImV4cCI6MTczMjU1MTQwNH0.xZFXFnY60QCQ0dW4rtRLT15IH8BdGk7eT8XlziJv8bI"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "https://mf1g4s6ogi.execute-api.eu-north-1.amazonaws.com/api/deleted-notes"
+			},
+			"response": []
+		},
+		{
+			"name": "Restore Note",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkM5N2Z2QTJUd3ZpaEM4LThQTl9XaCIsInVzZXJuYW1lIjoiT2xsZTJAb2xsZS5jb20iLCJpYXQiOjE3MzI1Mzc4MDQsImV4cCI6MTczMjU1MTQwNH0.xZFXFnY60QCQ0dW4rtRLT15IH8BdGk7eT8XlziJv8bI"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"url": "https://mf1g4s6ogi.execute-api.eu-north-1.amazonaws.com/api/restore-note/DKN3HarpduK0-5nsptLlu"
+			},
+			"response": []
+		},
+		{
+			"name": "Permanently Delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkM5N2Z2QTJUd3ZpaEM4LThQTl9XaCIsInVzZXJuYW1lIjoiT2xsZTJAb2xsZS5jb20iLCJpYXQiOjE3MzI1Mzc4MDQsImV4cCI6MTczMjU1MTQwNH0.xZFXFnY60QCQ0dW4rtRLT15IH8BdGk7eT8XlziJv8bI"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "https://mf1g4s6ogi.execute-api.eu-north-1.amazonaws.com/api/deleted-notes/DKN3HarpduK0-5nsptLlu"
+			},
+			"response": []
+		}
+	]
+}
