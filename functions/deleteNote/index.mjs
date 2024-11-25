@@ -15,13 +15,14 @@ async function handleDeleteNote(event) {
 
     const getNoteResult = await getNote(userId, noteId);
     if (!getNoteResult.success){ return sendResponse(getNoteResult.errorCode, {success: getNoteResult.success, message: getNoteResult.message})}
+    if (getNoteResult.note.deleted){return sendResponse(400, {success: false, message: 'Note already deleted. To permanently delete use deleted-notes endpoint'})}
+    
     const valuesToChange = {
         deleted: true
     }
-    console.log("Get Note result:", getNoteResult)
 
     const editNoteResult = await editNote(getNoteResult.note, valuesToChange, deleted = true)
-    console.log("EditNoteResult", editNoteResult)
+ 
     if (!editNoteResult.success){
         return sendResponse(500, editNoteResult)
     }
