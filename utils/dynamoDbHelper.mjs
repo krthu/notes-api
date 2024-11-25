@@ -65,7 +65,7 @@ export async function retriveNotesFromDB(userId, deleted = false) {
         console.log('DAta: ', data)
         console.log('DAta: ', data.Items);
         //const notes = unmarshall(data.Items);
-        const notes = data.Items.filter(note => unmarshall(note))
+        const notes = data.Items.map(note => unmarshall(note))
         return { success: true, notes: notes }
 
 

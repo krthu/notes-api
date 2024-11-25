@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
 
-
 export const validateToken = {
     before: async (request) => {
         try {

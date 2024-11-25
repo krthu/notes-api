@@ -3,14 +3,9 @@ import { jsonParsing } from "../../middleware/jsonParsing.mjs";
 import { validateInput } from "../../middleware/validateInput.mjs";
 import { noteValidation } from "../../utils/validationObjects.mjs";
 import { errorHandler } from "../../middleware/errorHandler.mjs";
-import { DynamoDBClient, GetItemCommand, PutItemCommand } from '@aws-sdk/client-dynamodb';
-import { unmarshall, marshall } from '@aws-sdk/util-dynamodb';
 import { sendResponse } from "../../responses/sendResponse.mjs";
 import { validateToken } from "../../middleware/auth.mjs";
 import { getNote, editNote } from "../../utils/dynamoDbHelper.mjs";
-
-
-const dbClient = new DynamoDBClient()
 
 async function putNote(event) {
     const {title, text} = event.jsonBody;

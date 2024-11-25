@@ -46,7 +46,6 @@ async function login(username, password) {
 
 
 async function handleLogin(event, context){
-    //const {username, password} = JSON.parse(event.body);
     const {username, password} = event.jsonBody;
     const result = await login(username, password)
     if (result.success){
