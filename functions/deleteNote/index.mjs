@@ -14,9 +14,15 @@ async function handleDeleteNote(event) {
     const getNoteResult = await getNote(userId, noteId);
     if (!getNoteResult.success){ return sendResponse(getNoteResult.errorCode, {success: getNoteResult.success, message: getNoteResult.message})}
     if (getNoteResult.note.deleted){return sendResponse(400, {success: false, message: 'Note already deleted. To permanently delete use deleted-notes endpoint', noteId: noteId})}
+    const nowInSeconds = Math.floor(Date.now() / 1000);
+    const tenDaysInSeconds = 10 * 24 * 60 * 60;
+    //const oneHourInSeconds = 60 * 60;
+    const expiresAt = nowInSeconds + tenDaysInSeconds;
+
     
     const valuesToChange = {
-        deleted: true
+        deleted: true,
+        expiresAt: expiresAt
     }
 
     const editNoteResult = await editNote(getNoteResult.note, valuesToChange, deleted = true)

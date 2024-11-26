@@ -30,7 +30,7 @@ export async function getNote(userId, noteId) {
 export async function editNote(noteToEdit, valuesToChange, deleted = false) {
 
     const updatedNote = { ...noteToEdit, ...valuesToChange }
-    console.log(updatedNote)
+
     const params = {
         TableName: process.env.NOTES_TABLE,
         Item: marshall(updatedNote),
