@@ -10,8 +10,6 @@ import { errorHandler } from '../../middleware/errorHandler.mjs';
 import { signUpValidation } from '../../utils/validationObjects.mjs';
 const db = new DynamoDBClient();
 
-
-
 async function createUser(username, hasedPassword, firstname, lastname, userId) {
     const user = {
         username: username,

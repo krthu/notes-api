@@ -8,8 +8,6 @@ import { sendResponse } from "../../responses/sendResponse.mjs";
 async function handleDeleteNote(event) {
     const userId = event.id;
     const {noteId} = event.pathParameters;
-    console.log("UserID:", userId)
-    console.log("noteId:", noteId)
 
     const getNoteResult = await getNote(userId, noteId);
     if (!getNoteResult.success){ return sendResponse(getNoteResult.errorCode, {success: getNoteResult.success, message: getNoteResult.message})}
@@ -18,7 +16,6 @@ async function handleDeleteNote(event) {
     const tenDaysInSeconds = 10 * 24 * 60 * 60;
     //const oneHourInSeconds = 60 * 60;
     const expiresAt = nowInSeconds + tenDaysInSeconds;
-
     
     const valuesToChange = {
         deleted: true,
@@ -34,7 +31,6 @@ async function handleDeleteNote(event) {
         return sendResponse(200, editNoteResult)
     }
 }
-
 
 export const handler = middy(handleDeleteNote)
     .use(validateToken)
