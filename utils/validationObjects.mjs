@@ -24,28 +24,6 @@ export const noteValidation = {
 }
 
 
-// export const noteValidation = {
-//     title: noteTitleValidation,
-//     text: {
-//         required: true,
-//         type: 'string',
-//         validate: (value) => value.length > 1 && value.length <= 300,
-//         validationError: 'Need to be between 1-300 characters'
-//     }
-// }
-
-// export const createNoteValidation = {
-//     title: noteTitleValidation,
-//     text: noteTextValidation
-// }
-
-// export const changeNoteValidation = {
-//     id: noteIdValidation,
-//     title: noteTitleValidation,
-//     text: noteTextValidation
-// }
-
-
 
 export const signUpValidation = { 
     username:{
@@ -78,13 +56,9 @@ export const loginValidation = {
     username: {
         required: true,
         type: 'string',
-        // validate: (value) => value.trim().length > 1,
-        // validationError: 'Needs to be atleast 1 character'
     },
     password: {
         required: true,
         type: 'string',
-        // validate: (value) => value.length > 6,
-        // validationError: 'Needs to be atleast 6 characters'
     }
 }

@@ -25,12 +25,6 @@ async function saveNoteToDb(note) {
     }
 }
 
-function checkLength(text, length) {
-    if (text.length > length) {
-        return false;
-    }
-}
-
 async function postNote(event) {
     const userId = event.id;
     const { title, text } = event.jsonBody;

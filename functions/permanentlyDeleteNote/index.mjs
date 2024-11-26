@@ -12,8 +12,8 @@ async function handlePermanentlyDelete(event) {
     const getNoteResult = await getNote(userId, noteId);
     if (!getNoteResult.success){ return sendResponse(getNoteResult.errorCode, {success: getNoteResult.success, message: getNoteResult.message})}
     const noteToDelete = getNoteResult.note;
-    // Should i do this or are you allowed to permanently delete right away?
-    if(!noteToDelete.deleted){return sendResponse(400, {success: false, message: 'Note is note deleted. Delete the note first'})}
+    // Should i do this or are you allowed to permanently delete right away? - Decided that it is up to the frontend to handle this carefully.
+    //if(!noteToDelete.deleted){return sendResponse(400, {success: false, message: 'Note is note deleted. Delete the note first'})}
     const deletNoteResult = await deleteNotePermanently(userId, noteId);
     if (deletNoteResult.success){
         return sendResponse(200, deletNoteResult);
