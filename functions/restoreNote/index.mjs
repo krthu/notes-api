@@ -16,13 +16,21 @@ async function handleRestoreNote(event) {
     }
     const valuesToChange = {
         deleted: false
+
+    }
+    if (getNoteResult.note.expiresAt) {
+        delete getNoteResult.note.expiresAt;
     }
     const editNoteResult = await editNote(getNoteResult.note, valuesToChange)
-    if (!editNoteResult.success) { return sendResponse(500, editNoteResult)}
-    editNoteResult.message = `Restored note`
-    return sendResponse(200, editNoteResult)
-}
+    if (!editNoteResult.success) { 
+        return sendResponse(500, editNoteResult)
+    }
+    else {
+        editNoteResult.message = `Restored note`
+        return sendResponse(200, editNoteResult)
+    }
 
+}
 
 export const handler = middy(handleRestoreNote)
     .use(validateToken)
