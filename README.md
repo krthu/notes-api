@@ -46,8 +46,8 @@ Signup to be able to login and use the api.
 ```
 ---
 #### POST `/user/login` 
-Authenticate a user and retrieve a JWT token. 
-**Request Body:** 
+Authenticate a user and retrieve a JWT token.  
+**Request Body:**  
  ```json 
  { 
 	 "username": "your_username", 
@@ -55,7 +55,7 @@ Authenticate a user and retrieve a JWT token.
  }
 ```
 
-**Response**
+**Response**  
 ```json
 {
 	"success":  true,
@@ -64,8 +64,8 @@ Authenticate a user and retrieve a JWT token.
 ```
 ___
 #### POST `/notes` 
-Add a note. 
-**Request Body:** 
+Add a note.  
+**Request Body:**  
  ```json 
 {
 	"title":  "note_title",
@@ -73,7 +73,7 @@ Add a note.
 }
 ```
 
-**Response**
+**Response**  
 ```json
 {
 	"success":  true,
@@ -82,9 +82,9 @@ Add a note.
 ```
 ___
 #### Get `/notes` 
-Retrive all notes. 
+Retrive all notes.  
 
-**Response**
+**Response** 
 ```json
 {
 	"success":  true,
@@ -102,10 +102,10 @@ Retrive all notes.
 ```
 
 ___
-#### Put `/notes/{noteId}` 
-Add a note. 
+#### Put `/notes/{noteId}`  
+Add a note.  
 
-**Request Body:** 
+**Request Body:**  
  ```json 
 {
 "title":  "note_title",
@@ -113,7 +113,7 @@ Add a note.
 }
 ```
 
-**Response**
+**Response**  
 ```json
 {
 	"success":  true,
@@ -123,7 +123,7 @@ Add a note.
 ```
 ___
 #### Delete `/notes/{noteId}` 
-Soft delete note.
+Soft delete note.  
 
 **Response**
 ```json
@@ -136,7 +136,7 @@ Soft delete note.
 
 ---
 #### Get `/deleted-notes` 
-Retrive all notes marked for deletion.
+Retrive all notes marked for deletion.  
 
 **Response**
 ```json
@@ -159,9 +159,9 @@ Retrive all notes marked for deletion.
 
 ---
 #### Put `/deleted-notes/{noteId}` 
-Restore soft deleted note.
+Restore soft deleted note.  
 
-**Response**
+**Response**  
 ```json
 {
 	"success":  true,
@@ -172,7 +172,7 @@ Restore soft deleted note.
  
  ---
  #### Delete `/deleted-notes/{noteId}` 
-Hard delete note.
+Hard delete note.  
 
 **Response**
 ```json
