@@ -25,9 +25,9 @@ All API endpoints (except login and signup) require a valid JWT token. Include t
 Authorization: Bearer <your_token>
 
 #### POST `/user/signup` 
-Signup to be able to login and use the api.
+Signup to be able to login and use the api.  
 
-#####Request Body:
+**Request Body:**  
 
  ```json 
 {
