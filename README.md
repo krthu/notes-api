@@ -1,68 +1,42 @@
-<!--
-title: 'AWS NodeJS Example'
-description: 'This template demonstrates how to deploy a simple NodeJS function running on AWS Lambda using the Serverless Framework.'
-layout: Doc
-framework: v4
-platform: AWS
-language: nodeJS
-priority: 1
-authorLink: 'https://github.com/serverless'
-authorName: 'Serverless, Inc.'
-authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
--->
+# Notes API
 
-# Serverless Framework AWS NodeJS Example
+Welcome to the Notes API! This API allows you to create, save, delete, and restore notes. Each note includes a title and text. To ensure security, access to the API requires authentication using JSON Web Tokens (JWT).
 
-This template demonstrates how to deploy a simple NodeJS function running on AWS Lambda using the Serverless Framework. The deployed function does not include any event definitions or any kind of persistence (database). For more advanced configurations check out the [examples repo](https://github.com/serverless/examples/) which include use cases like API endpoints, workers triggered by SQS, persistence with DynamoDB, and scheduled tasks. For details about configuration of specific events, please refer to our [documentation](https://www.serverless.com/framework/docs/providers/aws/events/).
+## Features
 
-## Usage
+The API provides the following functionality:
 
-### Deployment
+1.  **Create a new note**  – Add a note with a title and text.
+2.  **Retrieve all notes**  – Fetch all saved notes, including restored ones.
+3. **Edit a note** - Edit an existing note.
+4.  **Delete a note**  – Soft delete a note, marking it as deleted instead of removing it permanently. It is hard deleted after staying soft deleted for 10 days.
+5. **Retrive all deleted notes** - Fetch all saved notes marked for deletion.
+6.  **Restore a deleted note**  – Restore a previously deleted note.
+7. **Permanently delete a note** - Hard delete note, this note can not be restored.
 
-In order to deploy the example, you need to run the following command:
+## Authentication
 
-```
-serverless deploy
-```
+All API endpoints (except login and signup) require a valid JWT token. Include the token in the Authorization header as a Bearer token for each request:
+Authorization: Bearer <your_token>
 
-After running deploy, you should see output similar to:
-
-```
-Deploying "aws-node" to stage "dev" (us-east-1)
-
-✔ Service deployed to stack aws-node-dev (90s)
-
-functions:
-  hello: aws-node-dev-hello (1.5 kB)
-```
-
-### Invocation
-
-After successful deployment, you can invoke the deployed function by using the following command:
-
-```
-serverless invoke --function hello
-```
-
-Which should result in response similar to the following:
-
-```json
+#### POST `/user/signup` 
+Signup to be able to login and use the api.
+**Request Body:** 
+ ```json 
 {
-  "statusCode": 200,
-  "body": "{\"message\":\"Go Serverless v4.0! Your function executed successfully!\"}"
+"username":  "your_username",
+"password":  "your_password",
+"firstname":  "your_firstname",
+"lastname":  "your_lastname"
 }
 ```
 
-### Local development
-
-The easiest way to develop and test your function is to use the Serverless Framework's `dev` command:
-
+#### POST `/user/login` 
+Authenticate a user and retrieve a JWT token. 
+**Request Body:** 
+ ```json 
+ { 
+ "username": "your_username", 
+ "password": "your_password" 
+ }
 ```
-serverless dev
-```
-
-This will start a local emulator of AWS Lambda and tunnel your requests to and from AWS Lambda, allowing you to interact with your function as if it were running in the cloud.
-
-Now you can invoke the function as before, but this time the function will be executed locally. Now you can develop your function locally, invoke it, and see the results immediately without having to re-deploy.
-
-When you are done developing, don't forget to run `serverless deploy` to deploy the function to the cloud.
