@@ -82,7 +82,7 @@ ___
 #### Get `/notes` 
 Retrive all notes. 
 
-**Resonse**
+**Response**
 ```json
 {
 	"success":  true,
@@ -102,6 +102,7 @@ Retrive all notes.
 ___
 #### Put `/notes/{noteId}` 
 Add a note. 
+
 **Request Body:** 
  ```json 
 {
@@ -121,6 +122,7 @@ Add a note.
 ___
 #### Delete `/notes/{noteId}` 
 Soft delete note.
+
 **Response**
 ```json
 {
@@ -134,7 +136,7 @@ Soft delete note.
 #### Get `/deleted-notes` 
 Retrive all notes marked for deletion.
 
-**Resonse**
+**Response**
 ```json
 {
 	"success":  true,
@@ -156,6 +158,7 @@ Retrive all notes marked for deletion.
 ---
 #### Put `/deleted-notes/{noteId}` 
 Restore soft deleted note.
+
 **Response**
 ```json
 {
@@ -168,6 +171,7 @@ Restore soft deleted note.
  ---
  #### Delete `/deleted-notes/{noteId}` 
 Hard delete note.
+
 **Response**
 ```json
 {
