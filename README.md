@@ -47,6 +47,7 @@ Signup to be able to login and use the api.
 ---
 #### POST `/user/login` 
 Authenticate a user and retrieve a JWT token.   
+
 **Request Body:**  
  ```json 
  { 
@@ -64,6 +65,7 @@ Authenticate a user and retrieve a JWT token.
 ```
 ___
 #### POST `/notes` 
+
 Add a note.   
 
 **Request Body:**   
@@ -144,16 +146,16 @@ Retrive all notes marked for deletion.
 {
 	"success":  true,
 	"notes":  [
-			{
-			"modifiedAt":  "2024-11-26T11:52:51.830Z",
-			"userId":  "userId",
-			"deleted":  true,
-			"expiresAt":  1733486108,
-			"createdAt":  "2024-11-25T12:30:29.489Z",
-			"text":  "note_text",
-			"id":  "note_id",
-			"title":  "the_title"
-			}
+		{
+		"modifiedAt":  "2024-11-26T11:52:51.830Z",
+		"userId":  "userId",
+		"deleted":  true,
+		"expiresAt":  1733486108,
+		"createdAt":  "2024-11-25T12:30:29.489Z",
+		"text":  "note_text",
+		"id":  "note_id",
+		"title":  "the_title"
+		}
 	]
 }
 ```
