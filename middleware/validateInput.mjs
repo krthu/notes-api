@@ -1,3 +1,5 @@
+import { sendResponse } from "../responses/sendResponse.mjs";
+
 export const validateInputKeys = (requiredKeys) => ({
     before: async (request) => {
         const body = request.event.jsonBody;
@@ -15,7 +17,12 @@ export const validateInputKeys = (requiredKeys) => ({
 export const validateInput = (validationRules) => ({
     before: async (request) => {
         const body = request.event.jsonBody;
-        //sconst errors = [];
+
+        if (Object.keys(validationRules).length < Object.keys(body).length){
+            console.log('Inside to many keys')
+                request.event.error = `You can't send more keys then expected.`;
+                throw new Error();
+        }
 
         for (const [key, rules] of Object.entries(validationRules)) {
             const value = body[key];
