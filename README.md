@@ -26,7 +26,7 @@ Authorization: Bearer <your_token>
 
 #### POST `/user/signup` 
 Signup to be able to login and use the api.
-**Request Body:** 
+#####Request Body:
  ```json 
 {
 	"username":  "your_username",
