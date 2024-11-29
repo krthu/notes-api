@@ -16,7 +16,8 @@ The API provides the following functionality:
 
 ## Base URL 
 All endpoints are accessible under the following base URL:
-https://mf1g4s6ogi.execute-api.eu-north-1.amazonaws.com/api/
+https://mf1g4s6ogi.execute-api.eu-north-1.amazonaws.com/api/  
+Linkt to Postman Json example file: https://github.com/krthu/notes-api/blob/main/NotesExamPostman.json 
 
 
 ## Authentication
