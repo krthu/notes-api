@@ -52,6 +52,4 @@ export const handler = middy(postNote)
     .use(validateToken)
     .use(jsonParsing)
     .use(validateInput(noteValidation))
-
-
     .use(errorHandler)
